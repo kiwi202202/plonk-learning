@@ -1,4 +1,7 @@
 pub mod field;
+pub mod field_extension;
+pub mod pythagorean_circuit;
+pub mod pythagorean_transcript;
 
 pub fn add(left: u64, right: u64) -> u64 {
     left + right
