@@ -134,7 +134,7 @@ pub fn print_elliptic_curve_points(g: Point) {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-pub struct F17(u32);
+pub struct F17(pub u32);
 
 impl F17 {
     pub const P: u32 = 17;
@@ -270,7 +270,7 @@ fn matrix_mul_vec(matrix: [[F17; 4]; 4], vec: [F17; 4]) -> [F17; 4] {
 }
 
 // vandermonde_inverse * vec[points.y]
-fn solve_coefficients(points: &[(F17, F17); 4]) -> Option<[F17; 4]> {
+pub fn solve_coefficients(points: &[(F17, F17); 4]) -> Option<[F17; 4]> {
     let vandermonde = vander_matrix(points);
     // println!("vandermonde: {:?}", vandermonde);
     let inverse = matrix_inverse(vandermonde)?;

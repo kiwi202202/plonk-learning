@@ -1,5 +1,6 @@
 pub mod field;
 pub mod field_extension;
+pub mod prescribed_permutation;
 pub mod pythagorean_circuit;
 pub mod pythagorean_transcript;
 
