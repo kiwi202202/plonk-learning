@@ -147,6 +147,9 @@ impl F17 {
     pub const K1H: [F17; 4] = [F17(2), F17(8), F17(15), F17(9)];
     pub const K2H: [F17; 4] = [F17(3), F17(12), F17(14), F17(5)];
 
+    pub const K1: F17 = F17(2);
+    pub const K2: F17 = F17(3);
+
     pub fn new(n: u32) -> Self {
         F17(n % Self::P)
     }
@@ -173,6 +176,18 @@ impl F17 {
 
     pub fn value(self) -> u32 {
         self.0
+    }
+
+    pub fn pow(self, exp: u32) -> F17 {
+        let mut result = F17::ONE;
+        for _ in 0..exp {
+            result = result.mul(self);
+        }
+        result
+    }
+
+    pub fn neg(self) -> F17 {
+        F17::ZERO.sub(self)
     }
 }
 
@@ -310,6 +325,18 @@ mod tests {
             (F17::new(4), F17::new(4)),
             (F17::new(16), F17::new(5)),
             (F17::new(13), F17::new(9)),
+        ];
+        let result = solve_coefficients(&points).unwrap();
+        println!("result poly in coeff form: {:?}", result);
+    }
+
+    #[test]
+    fn larange_base_test() {
+        let points: [(F17, F17); 4] = [
+            (F17::new(1), F17::new(1)),
+            (F17::new(4), F17::new(0)),
+            (F17::new(16), F17::new(0)),
+            (F17::new(13), F17::new(0)),
         ];
         let result = solve_coefficients(&points).unwrap();
         println!("result poly in coeff form: {:?}", result);

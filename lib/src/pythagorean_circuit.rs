@@ -10,7 +10,10 @@
 // Gate 2: 0*a2 + 0*b2 + (-1)*c2 + 1*a2b2 + 0 = 0
 // Gate 3: 1*a3 + 1*b3 + (-1)*c3 + 0*a3b3 + 0 = 0
 
-use crate::field::{solve_coefficients, F17};
+use crate::{
+    field::{solve_coefficients, F17},
+    polynomial::Polynomial,
+};
 
 // Selectors, the verifier would have |S|
 pub const Q_L: [F17; 4] = [F17::ZERO, F17::ZERO, F17::ZERO, F17::ONE];
@@ -39,6 +42,14 @@ pub fn gen_s_polys_coeff() -> [[F17; 4]; 5] {
         .collect::<Vec<_>>()
         .try_into()
         .unwrap()
+}
+
+pub fn gen_selector_polys() -> [Polynomial; 5] {
+    let [q_l, q_r, q_o, q_m, q_c] = gen_s_polys_coeff();
+
+    [q_l, q_r, q_o, q_m, q_c].map(|coeffs| Polynomial {
+        coeffs: coeffs.to_vec(),
+    })
 }
 
 #[cfg(test)]

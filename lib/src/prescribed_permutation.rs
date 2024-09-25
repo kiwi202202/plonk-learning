@@ -1,4 +1,7 @@
-use crate::field::{solve_coefficients, F17};
+use crate::{
+    field::{solve_coefficients, F17},
+    polynomial::Polynomial,
+};
 
 // imagine a one-place rotation on all the wires
 // left inputs are encoded by F17.H
@@ -38,6 +41,14 @@ pub fn gen_W_coeff() -> ([F17; 4], [F17; 4], [F17; 4]) {
     let sigma_R_coeff = solve_coefficients(&sigma_R_points).unwrap();
     let sigma_O_coeff = solve_coefficients(&sigma_O_points).unwrap();
     (sigma_L_coeff, sigma_R_coeff, sigma_O_coeff)
+}
+
+pub fn gen_sigma_polys() -> [Polynomial; 3] {
+    let (sigma1, sigma2, sigma3) = gen_W_coeff();
+
+    [sigma1, sigma2, sigma3].map(|coeffs| Polynomial {
+        coeffs: coeffs.to_vec(),
+    })
 }
 
 #[cfg(test)]
