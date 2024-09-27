@@ -1,7 +1,7 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, ops::Sub};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-pub struct F101(u32);
+pub struct F101(pub u32);
 
 impl F101 {
     pub const P: u32 = 101;
@@ -37,6 +37,10 @@ impl F101 {
     pub fn value(self) -> u32 {
         self.0
     }
+
+    pub fn neg(self) -> F101 {
+        F101::new(F101::P - self.0)
+    }
 }
 
 pub fn mod_pow(mut base: u32, mut exp: u32, modulus: u32) -> u32 {
@@ -56,6 +60,23 @@ pub fn mod_pow(mut base: u32, mut exp: u32, modulus: u32) -> u32 {
 pub enum Point {
     Infinity,
     Point { x: F101, y: F101 },
+}
+
+impl Point {
+    pub fn point_neg(self) -> Point {
+        match self {
+            Point::Infinity => Point::Infinity,
+            Point::Point { x, y } => Point::Point { x, y: y.neg() },
+        }
+    }
+
+    pub fn add(self, other: Point) -> Point {
+        point_add(self, other)
+    }
+
+    pub fn mul(self, k: F17) -> Point {
+        scalar_mult(k.0, self)
+    }
 }
 
 pub fn point_add(p1: Point, p2: Point) -> Point {

@@ -10,6 +10,7 @@ pub mod round3;
 pub mod round4;
 pub mod round5;
 pub mod srs;
+pub mod verifier;
 
 pub fn add(left: u64, right: u64) -> u64 {
     left + right

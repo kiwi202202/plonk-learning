@@ -21,6 +21,7 @@ pub const Q_R: [F17; 4] = [F17::ZERO, F17::ZERO, F17::ZERO, F17::ONE];
 pub const Q_O: [F17; 4] = [F17::NEG_ONE, F17::NEG_ONE, F17::NEG_ONE, F17::NEG_ONE]; // -1 in field 101
 pub const Q_M: [F17; 4] = [F17::ONE, F17::ONE, F17::ONE, F17::ZERO];
 pub const Q_C: [F17; 4] = [F17::ZERO, F17::ZERO, F17::ZERO, F17::ZERO];
+pub const N: u32 = 4;
 
 pub fn gen_s_polys_point_value() -> [[(F17, F17); 4]; 5] {
     [Q_L, Q_R, Q_O, Q_M, Q_C].map(|q| {
