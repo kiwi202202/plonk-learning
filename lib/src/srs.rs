@@ -4,6 +4,7 @@ use crate::{
     polynomial::Polynomial,
 };
 
+#[derive(Clone, Debug)]
 pub struct SRS {
     pub f101_points: Vec<Point>,
     pub f101_2_elements: Vec<F1012>,
@@ -43,4 +44,15 @@ pub fn commit_poly(poly_for_commit: Polynomial) -> Point {
         committed_point = point_add(committed_point, p);
     }
     committed_point
+}
+
+#[cfg(test)]
+pub mod tests {
+    use super::get_srs;
+
+    #[test]
+    pub fn srs_display() {
+        let srs = get_srs();
+        println!("{:?}", srs);
+    }
 }

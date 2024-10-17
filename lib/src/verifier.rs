@@ -47,7 +47,10 @@ pub fn verifier_process(proof: Plonk_Proof) {
     let sigma1_box = commit_poly(sigma1);
     let sigma2_box = commit_poly(sigma2);
     let sigma3_box = commit_poly(sigma3);
-    println!("{:?}, {:?},  {:?}", sigma1_box, sigma2_box, sigma3_box);
+    println!(
+        "sigma commitments: {:?}, {:?},  {:?}",
+        sigma1_box, sigma2_box, sigma3_box
+    );
 
     let random_u = F17(4);
 
